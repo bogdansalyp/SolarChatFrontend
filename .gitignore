@@ -1,0 +1,11 @@
+# IDE files
+.idea
+.vscode
+
+# OS X files
+.DS_Store
+
+# Project files
+node_modules
+dist
+coverage
