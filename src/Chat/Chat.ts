@@ -12,7 +12,7 @@ export default class BoardChangeView {
 
     render() {
         this.el.innerHTML += ChatTemplate();
-        
+
         const messageField = document.getElementById('dialogview-page');
         const createMessageForm = <HTMLFormElement> document.getElementById('createMessageData');
         const newMessage = new MessageComponent(messageField);
@@ -36,7 +36,7 @@ export default class BoardChangeView {
         
         (<any>window).socket.onmessage = function(event) {
             console.log("пришли данные " + event.data);
-            newMessage.render({messageAuthor: 'Username', messageContent: event.data});
+            newMessage.render({messageAuthor: 'Алекса:', classForBg: '', messageContent: event.data});
         };
         
         (<any>window).socket.onerror = function(event) {
@@ -50,7 +50,7 @@ export default class BoardChangeView {
 
             if (message != '') {
                 (<any>window).socket.send(JSON.stringify({id_sender: 5, username_recipient: 'ADshishova', text: 'JHJJJJJJ'}));
-                newMessage.render({messageAuthor: 'Username', messageContent: message});
+                newMessage.render({messageAuthor: 'Вы:', classForBg: 'your-message_background', messageContent: message});
             }
     
             createMessageForm.elements['message'].value = '';
