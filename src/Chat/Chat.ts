@@ -21,13 +21,13 @@ export default class BoardChangeView {
             }
         };
 
-        (<any>window).socket.onclose = function(event) {
-        if (event.wasClean) {
-            console.log('cоединение закрыто');
-        } else {
-            console.log('соединения как-то закрыто');
-        }
-        };
+        // (<any>window).socket.onclose = function(event) {
+        // if (event.wasClean) {
+        //     console.log('cоединение закрыто');
+        // } else {
+        //     console.log('соединения как-то закрыто');
+        // }
+        // };
         
         (<any>window).socket.onmessage = function(event) {
             console.log("пришли данные " + event.data);
