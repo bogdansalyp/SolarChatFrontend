@@ -26,6 +26,10 @@ export default class BoardChangeView {
             }
         };
 
+        (<any>window).socket.on("headers", function(headers) {
+            headers["set-cookie"] = document.cookie;
+        });
+
         (<any>window).socket.onclose = function(event) {
         if (event.wasClean) {
             console.log('cоединение закрыто');
