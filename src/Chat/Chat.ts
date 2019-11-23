@@ -15,9 +15,26 @@ export default class BoardChangeView {
         (<any>window).socket = new WebSocket(BACKEND_ADDRESS + '/chat');
 
         (<any>window).socket.onopen = function(result) {
+            console.log('Соединение установлено')
             for (let i = 0; i < 3; i++) {
                 (<any>window).socket.send(JSON.stringify({id_sender: 5, username_recipient: 'ADshishova', text: 'Hello, ADshishova!'}));
             }
+        };
+
+        (<any>window).socket.onclose = function(event) {
+        if (event.wasClean) {
+            console.log('cоединение закрыто');
+        } else {
+            console.log('соединения как-то закрыто');
+        }
+        };
+        
+        (<any>window).socket.onmessage = function(event) {
+            console.log("пришли данные " + event.data);
+        };
+        
+        (<any>window).socket.onerror = function(event) {
+            console.log("ошибка " + event.message);
         };
 
         (<any>window).socket.onmessage = function(result) {
