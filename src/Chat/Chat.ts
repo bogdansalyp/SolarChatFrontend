@@ -35,10 +35,12 @@ export default class BoardChangeView {
         }
         };
         
+        let data = null;
+
         (<any>window).socket.onmessage = function(event) {
             console.log("пришли данные " + event.data);
-            const data = JSON.parse(event.data);
-            newMessage.render({messageAuthor: 'Алекса:', classForBg: '', messageContent: data.text});
+            data = JSON.parse(event.data);
+            newMessage.render({messageAuthor: data.user_name_sender + ':', classForBg: '', messageContent: data.text});
         };
         
         (<any>window).socket.onerror = function(event) {
@@ -51,7 +53,12 @@ export default class BoardChangeView {
             const message = createMessageForm.elements['message'].value;
 
             if (message != '') {
-                (<any>window).socket.send(JSON.stringify({id_sender: 5, username_recipient: 'ADshishova', text: message}));
+                let username = 'ADshishova';
+                if (data != null) {
+                    username = data.user_name_sender;
+                    console.log(username);
+                }
+                (<any>window).socket.send(JSON.stringify({id_sender: 5, username_recipient: username, text: message}));
                 newMessage.render({messageAuthor: 'Вы:', classForBg: 'your-message_background', messageContent: message});
             }
     
