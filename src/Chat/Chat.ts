@@ -47,9 +47,11 @@ export default class BoardChangeView {
     
             const message = createMessageForm.elements['message'].value;
             const newMessage = new MessageComponent(messageField);
-            newMessage.render({messageAuthor: 'Username', messageContent: message});
 
-            (<any>window).socket.send(JSON.stringify({id_sender: 5, username_recipient: 'ADshishova', text: 'JHJJJJJJ'}));
+            if (message != '') {
+                (<any>window).socket.send(JSON.stringify({id_sender: 5, username_recipient: 'ADshishova', text: 'JHJJJJJJ'}));
+                newMessage.render({messageAuthor: 'Username', messageContent: message});
+            }
     
             createMessageForm.elements['message'].value = '';
         });
