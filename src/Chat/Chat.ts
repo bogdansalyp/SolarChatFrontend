@@ -21,14 +21,11 @@ export default class BoardChangeView {
 
         (<any>window).socket.onopen = function(result) {
             console.log('Соединение установлено')
-            for (let i = 0; i < 3; i++) {
-                (<any>window).socket.send(JSON.stringify({id_sender: 5, username_recipient: 'ADshishova', text: 'Hello, ADshishova!'}));
-            }
         };
 
-        (<any>window).socket.on("headers", function(headers) {
-            headers["set-cookie"] = document.cookie;
-        });
+        // (<any>window).socket.on("headers", function(headers) {
+        //     headers["set-cookie"] = document.cookie;
+        // });
 
         (<any>window).socket.onclose = function(event) {
         if (event.wasClean) {
@@ -40,7 +37,8 @@ export default class BoardChangeView {
         
         (<any>window).socket.onmessage = function(event) {
             console.log("пришли данные " + event.data);
-            newMessage.render({messageAuthor: 'Алекса:', classForBg: '', messageContent: event.data});
+            const data = JSON.parse(event.data);
+            newMessage.render({messageAuthor: 'Алекса:', classForBg: '', messageContent: data.text});
         };
         
         (<any>window).socket.onerror = function(event) {
@@ -53,7 +51,7 @@ export default class BoardChangeView {
             const message = createMessageForm.elements['message'].value;
 
             if (message != '') {
-                (<any>window).socket.send(JSON.stringify({id_sender: 5, username_recipient: 'ADshishova', text: 'JHJJJJJJ'}));
+                (<any>window).socket.send(JSON.stringify({id_sender: 5, username_recipient: 'ADshishova', text: message}));
                 newMessage.render({messageAuthor: 'Вы:', classForBg: 'your-message_background', messageContent: message});
             }
     
