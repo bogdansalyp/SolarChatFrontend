@@ -35,6 +35,7 @@ body {
     height: calc(100vh - 220px);
     width: 100%;
     background-color: #eeeeee;
+    overflow: auto;
 }
 
 .chat-message {
